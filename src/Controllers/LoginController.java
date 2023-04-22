@@ -1,8 +1,10 @@
 package Controllers;
 
+import Models.Admin;
 import Models.User;
 import Views.LoginView;
 import Views.UserView;
+import dao.AdminRepository;
 import dao.UserRepository;
 
 import java.sql.SQLException;
@@ -10,16 +12,24 @@ import java.sql.SQLException;
 public class LoginController {
     private LoginView loginView;
 
-    UserRepository instance;
+    UserRepository userRepository;
+
 
     {
         try {
-            instance = UserRepository.getInstance();
+            userRepository = UserRepository.getInstance();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
+    AdminRepository adminRepository;
+    {
+        try {
+            adminRepository = AdminRepository.getInstance();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public LoginController(LoginView loginView){
        this.loginView = loginView;
    }
@@ -30,7 +40,7 @@ public class LoginController {
     public boolean handleLogin(String username,String password){
         boolean flag = false;
         try {
-            User user = instance.searchUser(username);
+            User user = userRepository.searchUser(username);
 
             if(user!=null){
                 if(user.getPassword().equals(password)){
@@ -57,7 +67,7 @@ public class LoginController {
         boolean flag = false;
         try {
             User user = new User(username,name,email,phone,password);
-            instance.addUser(user);
+            userRepository.addUser(user);
             flag = true;
             System.out.println("Registration Successful");
         } catch (SQLException e) {
@@ -70,8 +80,39 @@ public class LoginController {
     }
 
 
-//
-//    public void handleUser(String username){
-//
-//    }
+    public boolean handleAdminLogin(String name,String password){
+        boolean flag = false;
+        try {
+            Admin admin = adminRepository.searchAdmin(name);
+
+            if(admin!=null){
+                if(admin.getAdminPassword().equals(password)){
+                    flag = true;
+                }
+                else{
+                    System.out.println("Invalid credentials");
+                }
+            }
+            else{
+                System.out.println("Admin not found.");
+            }
+        } catch (SQLException e) {
+            System.out.println("An error occurred while adding the user: " + e.getMessage());
+        }
+        return flag;
+    }
+
+
+    public boolean handleAdminRegister(String name , String password) {
+        boolean flag = false;
+        try {
+            Admin admin = new Admin(name,password);
+            adminRepository.addAdmin(admin);
+            flag = true;
+            System.out.println("Registration Successful");
+        } catch (SQLException e) {
+            System.out.println("An error occurred while adding the user: " + e.getMessage());
+        }
+        return flag;
+    }
 }

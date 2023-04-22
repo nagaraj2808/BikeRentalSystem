@@ -5,7 +5,7 @@ import Views.UserView;
 
 public class Controller {
     UserController userController;
-
+    LoginController loginController;
     public void setUserController(UserController userController) {
         this.userController = userController;
     }
@@ -22,7 +22,7 @@ public class Controller {
         return loginController;
     }
 
-    LoginController loginController;
+
     public void start(){
         LoginView loginView = new LoginView();
         this.setLoginController(new LoginController(loginView));

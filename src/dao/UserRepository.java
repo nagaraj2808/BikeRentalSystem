@@ -9,11 +9,8 @@ import java.util.List;
 public class UserRepository implements UserDAO{
 
 
-    private final String url = "jdbc:mysql://localhost/bikerental";
-    private final String user = "root";
-    private final String password = "";
-    Connection connection = DriverManager.getConnection(url, user, password);
-
+    DatabaseConnection dbInstance = DatabaseConnection.getDatabaseInstance();
+    Connection connection = dbInstance.getConnection();
     public static UserRepository instance = null;
     public static UserRepository getInstance() throws SQLException {
         if (instance!=null){

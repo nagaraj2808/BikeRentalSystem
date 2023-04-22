@@ -18,8 +18,125 @@ public class LoginView {
         int choice;
         do{
             System.out.println("Welcome to the Login System!\n");
-            System.out.println("1. Enter Login Details");
-            System.out.println("2. Create New Account");
+            System.out.println("1. Login as user");
+            System.out.println("2. Login as admin");
+            System.out.println("0. Exit\n");
+
+            System.out.print("Enter your choice: ");
+            choice=scanner.nextInt();
+//            String correctDetails=null;
+            switch(choice){
+//                case 1:
+//                    correctDetails = enterLoginDetails();
+//                    if (correctDetails!=null){
+//                        controller.userController(correctDetails);
+//                    }
+//                    break;
+//                case 2:
+//                    correctDetails = createNewAccount();
+//                    if (correctDetails!=null){
+//                        controller.userController(correctDetails);
+//                    }
+//                    break;
+                case 1:
+                    loginAsUser();
+                    break;
+                case 2: loginAsAdmin();
+                    break;
+                case 0:
+                    System.out.println("Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.\n");
+                    break;
+            }
+        }while(choice!=0);
+
+    }
+
+    private void loginAsAdmin() {
+        Scanner scanner =new Scanner(System.in);
+        int choice;
+        do{
+            System.out.println("\nAdmin Login System!\n");
+            System.out.println("1. Enter login Details");
+            System.out.println("2. Create new account");
+            System.out.println("0. Exit\n");
+
+            System.out.print("Enter your choice: ");
+            choice=scanner.nextInt();
+            String correctDetails=null;
+            switch(choice){
+                case 1:
+                    correctDetails = enterAdminDetails();
+                    if (correctDetails!=null){
+//                        controller.userController(correctDetails);
+                        System.out.println("Successfully logged in as admin");
+                    }
+                    break;
+                case 2:
+                    correctDetails = createNewAdmin();
+                    if (correctDetails!=null){
+//                        controller.userController(correctDetails);
+                        System.out.println("Successfully registered login");
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.\n");
+                    break;
+            }
+
+        }while(choice!=0);
+    }
+
+    public String enterAdminDetails(){
+        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Enter User de");
+        System.out.print("Enter admin name: ");
+        String username = scanner.nextLine();
+
+        System.out.print("Enter  password: ");
+        String password = scanner.nextLine();
+
+        if(controller.getLoginController().handleAdminLogin(username,password)){
+            return  username;
+        }
+        else {
+            return null;
+        }
+    }
+    public String createNewAdmin(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nRegister admin\n");
+
+        System.out.print("Enter admin name: ");
+        String username = scanner.nextLine();
+
+        System.out.print("Enter  password: ");
+        String password = scanner.nextLine();
+
+        if(controller.getLoginController().handleAdminRegister(username,password)){
+            return  username;
+        }
+        else {
+            return null;
+        }
+    }
+
+
+
+
+
+
+
+
+    public void loginAsUser(){
+        Scanner scanner =new Scanner(System.in);
+        int choice;
+        do{
+            System.out.println("\nUser Login System!\n");
+            System.out.println("1. Enter login Details");
+            System.out.println("2. Create new account");
             System.out.println("0. Exit\n");
 
             System.out.print("Enter your choice: ");
@@ -37,17 +154,13 @@ public class LoginView {
                     if (correctDetails!=null){
                         controller.userController(correctDetails);
                     }
-
-                    break;
-                case 0:
-                    System.out.println("Goodbye!");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.\n");
                     break;
             }
-        }while(choice!=0);
 
+        }while(choice!=0);
     }
 
     public  String enterLoginDetails() {
