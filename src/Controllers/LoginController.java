@@ -70,8 +70,8 @@ public class LoginController {
     }
 
 
-
-    public void handleUser(String username){
-
-    }
+//
+//    public void handleUser(String username){
+//
+//    }
 }
