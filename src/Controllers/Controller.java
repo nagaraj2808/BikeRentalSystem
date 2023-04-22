@@ -1,11 +1,25 @@
 package Controllers;
 
+import Views.AdminView;
 import Views.LoginView;
 import Views.UserView;
 
 public class Controller {
     UserController userController;
     LoginController loginController;
+
+    AdminController adminController;
+
+    public AdminController getAdminController() {
+        return adminController;
+    }
+
+    public void setAdminController(AdminController adminController) {
+        this.adminController = adminController;
+    }
+
+
+
     public void setUserController(UserController userController) {
         this.userController = userController;
     }
@@ -30,10 +44,16 @@ public class Controller {
         loginView.menuLoginPage();
     }
 
-    public void userController(String username){
+    public void userPage(String username){
         this.setUserController(new UserController(username));
         UserView userView = new UserView(username);
         userView.userMenu();
+    }
+
+    public void adminPage(String adminName){
+        this.setAdminController(new AdminController(adminName));
+        AdminView adminView = new AdminView();
+        adminView.adminMenu();
     }
 
 

@@ -1,4 +1,5 @@
 package Views;
+import Controllers.AdminController;
 import Controllers.Controller;
 import Controllers.LoginController;
 
@@ -70,15 +71,15 @@ public class LoginView {
                 case 1:
                     correctDetails = enterAdminDetails();
                     if (correctDetails!=null){
-//                        controller.userController(correctDetails);
                         System.out.println("Successfully logged in as admin");
+                        controller.adminPage(correctDetails);
                     }
                     break;
                 case 2:
                     correctDetails = createNewAdmin();
                     if (correctDetails!=null){
-//                        controller.userController(correctDetails);
-                        System.out.println("Successfully registered login");
+                        System.out.println("Successfully registered and logged in as admin");
+                        controller.adminPage(correctDetails);
                     }
                     break;
                 default:
@@ -124,12 +125,6 @@ public class LoginView {
     }
 
 
-
-
-
-
-
-
     public void loginAsUser(){
         Scanner scanner =new Scanner(System.in);
         int choice;
@@ -146,13 +141,13 @@ public class LoginView {
                 case 1:
                     correctDetails = enterLoginDetails();
                     if (correctDetails!=null){
-                        controller.userController(correctDetails);
+                        controller.userPage(correctDetails);
                     }
                     break;
                 case 2:
                     correctDetails = createNewAccount();
                     if (correctDetails!=null){
-                        controller.userController(correctDetails);
+                        controller.userPage(correctDetails);
                     }
                     break;
                 default:

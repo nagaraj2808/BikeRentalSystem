@@ -12,6 +12,12 @@ import java.sql.SQLException;
 public class LoginController {
     private LoginView loginView;
 
+    public LoginController(LoginView loginView){
+        this.loginView = loginView;
+    }
+
+
+
     UserRepository userRepository;
 
 
@@ -22,6 +28,8 @@ public class LoginController {
             throw new RuntimeException(e);
         }
     }
+
+
     AdminRepository adminRepository;
     {
         try {
@@ -30,9 +38,7 @@ public class LoginController {
             throw new RuntimeException(e);
         }
     }
-    public LoginController(LoginView loginView){
-       this.loginView = loginView;
-   }
+
     public void start(){
         loginView.menuLoginPage();
     }

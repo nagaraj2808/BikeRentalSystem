@@ -55,14 +55,13 @@ public class UserRepository implements UserDAO{
     }
 
     @Override
-    public void deleteUser(String id) throws SQLException {
-
+    public void deleteUser(String username) throws SQLException {
+        String query = "DELETE FROM user WHERE userName = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, username);
+        statement.executeUpdate();
     }
 
-    @Override
-    public void updateUser(User book) throws SQLException {
-
-    }
 
     @Override
     public List<User> searchUsers(String keyword) throws SQLException {
