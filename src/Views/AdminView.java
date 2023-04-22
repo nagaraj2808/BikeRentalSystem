@@ -54,8 +54,15 @@ public class AdminView {
                     deleteUser();
                     break;
                 case 4:
-                    System.out.println("fourth option");
+                    viewAllBikes();
                     break;
+                case 5:correctDetails = addNewBike();
+                    if (correctDetails!=null){
+                        System.out.println("User added successfully");
+                    }
+                    break;
+                case 6:deleteBike();
+                break;
                 case -1:
                     System.out.println("Redirecting to login page.....\n");
                     break;
@@ -69,6 +76,15 @@ public class AdminView {
         }while(choice!=-1);
     }
 
+    private void viewAllBikes() {
+        String allbikes = controller.getAdminController().viewAllBike();
+        if (Objects.equals(allbikes, "")) {
+            System.out.println("No bikes found");
+        } else {
+            System.out.println(allbikes);
+        }
+    }
+
     public void deleteUser(){
         Scanner scanner = new Scanner(System.in);
 
@@ -79,8 +95,6 @@ public class AdminView {
         }
 
     }
-
-
     public String addNewUser(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nEnter the Details of user to be added");
@@ -106,4 +120,52 @@ public class AdminView {
             return null;
         }
     }
+
+    public String addNewBike(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nEnter the Details of bike to be added");
+        System.out.print("Enter bikeId: ");
+        String bikeId = scanner.nextLine();
+
+        System.out.print("Enter type: ");
+        String type = scanner.nextLine();
+
+        System.out.print("Enter model: ");
+        String model = scanner.nextLine();
+
+        System.out.print("Enter build");
+        String build = scanner.nextLine();
+
+        System.out.print("Enter color");
+        String color = scanner.nextLine();
+
+        System.out.print("set price");
+        double price = scanner.nextDouble();
+
+
+
+        if(controller.getAdminController().addBike(bikeId,type,model,build,color,"true",price)){
+            return  bikeId;
+        }
+        else {
+            return null;
+        }
+    }
+
+    public void deleteBike(){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the bikeId of the bike: ");
+        String bikeId = scanner.nextLine();
+        if(!controller.getAdminController().deleteBike(bikeId)){
+            System.out.println("Operation failed Retry..........");
+        }
+        else{
+            System.out.println("Bike deleted successfully");
+        }
+
+    }
+
+
+
 }

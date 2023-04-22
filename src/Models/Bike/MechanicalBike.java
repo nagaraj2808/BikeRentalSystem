@@ -1,6 +1,6 @@
 package Models.Bike;
 public abstract class MechanicalBike extends Bike {
-    public MechanicalBike(String model, String build, String color) {
-        super(model, build, color);
+    public MechanicalBike(String bikeId,String model, String build, String color) {
+        super(bikeId, model, build, color);
     }
 }

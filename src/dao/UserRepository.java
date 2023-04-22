@@ -37,6 +37,7 @@ public class UserRepository implements UserDAO{
             String phone = resultSet.getString("phoneNumber");
             String password = resultSet.getString("password");
             User user = new User(userName,name,email,phone, password);
+
             users.add(user);
         }
         return users;

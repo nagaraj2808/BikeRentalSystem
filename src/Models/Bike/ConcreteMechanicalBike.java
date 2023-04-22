@@ -1,8 +1,8 @@
 package Models.Bike;
 public class ConcreteMechanicalBike extends MechanicalBike {
-    private double price = 200;
-    public ConcreteMechanicalBike(String model, String build, String color) {
-        super(model, build, color);
+    private double price;
+    public ConcreteMechanicalBike(String bikeID,String model, String build, String color) {
+        super(bikeID,model, build, color);
     }
 
     public boolean isModelAvailable(String model) {
@@ -12,4 +12,10 @@ public class ConcreteMechanicalBike extends MechanicalBike {
         return this.price;
     }
 
+    public void setPrice(double price){
+        this.price = price;
+    }
+    public String getType(){
+        return "mechanical";
+    }
 }
