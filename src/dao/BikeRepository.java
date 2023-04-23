@@ -118,4 +118,14 @@ public class BikeRepository implements BikeDAO{
 
         return bike;
     }
+
+    @Override
+    public void updateBikePrice(String bikeId, double newPrice) throws SQLException {
+        String query = "UPDATE bike SET price = ? WHERE bikeId = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+//        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setDouble(1, newPrice);
+        statement.setString(2, bikeId);
+        statement.executeUpdate();
+    }
 }

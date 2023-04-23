@@ -100,7 +100,7 @@ public class AdminController {
             String allBikes = "";
 
             for (Bike i:bikes) {
-                allBikes = "\n" + i.getBikeId() + "  " + i.getType() + "  " +  i.getModel() + "  " + i.getBuild() + i.getColor() + i.getPrice();
+                allBikes = "\nbikeId:(" + i.getBikeId() + ")  type:(" + i.getType() + ")   model:(" +  i.getModel() + ")   build" + i.getBuild() +")   color:("+ i.getColor() + ")   price:(" + i.getPrice()+")";
             }
             return  allBikes;
         } catch (SQLException e) {
@@ -110,19 +110,27 @@ public class AdminController {
         return null;
     }
 
-    public boolean addBike(String bikeId,String type,String model,String build,String color,String available,double price){
-        boolean flag = false;
+    public String addBike(String bikeId,String type,String model,String build,String color,String available,double price){
+        String output = "";
         try {
-            Bike bike = BikeFactory.createBike(type,bikeId,model,build,color);
-            bike.setAvailable(true);
-            bike.setPrice(price);
-            bikeRepositoryInstance.addBike(bike);
-            flag = true;
-            System.out.println("User added Successfully");
+            try {
+                Bike bike = BikeFactory.createBike(type,bikeId,model,build,color);
+                bike.setAvailable(true);
+                bike.setPrice(price);
+                bikeRepositoryInstance.addBike(bike);
+                output = "Bike added successfully\n";
+            }
+            catch (IllegalArgumentException e){
+                output = "IllegalArgumentException:" + e.getMessage()+ "\n";
+            }
+
+
+
+
         } catch (SQLException e) {
-            System.out.println("An error occurred while adding the user: " + e.getMessage());
+            output =  "SQLException: An error occurred while adding the user: " + e.getMessage() + "\n";
         }
-        return flag;
+        return output;
     }
 
     public boolean deleteBike(String bikeId){
@@ -142,5 +150,26 @@ public class AdminController {
 
 
         return flag;
+    }
+
+    public String changePrice(String bikeId,double newPrice) {
+        String output = "";
+        try {
+            Bike bike = bikeRepositoryInstance.searchBikeByID(bikeId);
+
+            if(bike!=null){
+
+                bikeRepositoryInstance.updateBikePrice(bikeId,newPrice);
+                output = "Updated bike price successfully......";
+            }
+            else{
+                output = "Bike not found";
+            }
+        }
+        catch (SQLException e){
+            output = "SQL ERROR: An error occurred while deleting the bike: " + e.getMessage();
+        }
+        return output;
+
     }
 }

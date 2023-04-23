@@ -15,4 +15,6 @@ public interface BikeDAO {
 
     List<Bike> searchBikesByType(String type) throws SQLException;
     Bike searchBikeByID(String bikeId) throws SQLException;
+
+    void updateBikePrice(String bikeId,double newPrice) throws SQLException;
 }

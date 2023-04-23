@@ -56,13 +56,12 @@ public class AdminView {
                 case 4:
                     viewAllBikes();
                     break;
-                case 5:correctDetails = addNewBike();
-                    if (correctDetails!=null){
-                        System.out.println("User added successfully");
-                    }
+                case 5:addNewBike();
                     break;
                 case 6:deleteBike();
-                break;
+                    break;
+                case 7: changePricing();
+                    break;
                 case -1:
                     System.out.println("Redirecting to login page.....\n");
                     break;
@@ -74,6 +73,18 @@ public class AdminView {
                     break;
             }
         }while(choice!=-1);
+    }
+
+    private void changePricing() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the bikeId of the bike: ");
+        String bikeId = scanner.nextLine();
+
+        System.out.println("Set new price for this bike");
+        double newPrice = scanner.nextDouble();
+        String output = controller.getAdminController().changePrice(bikeId,newPrice);
+        System.out.println(output + "\n");
     }
 
     private void viewAllBikes() {
@@ -121,7 +132,7 @@ public class AdminView {
         }
     }
 
-    public String addNewBike(){
+    public void addNewBike(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nEnter the Details of bike to be added");
         System.out.print("Enter bikeId: ");
@@ -133,23 +144,17 @@ public class AdminView {
         System.out.print("Enter model: ");
         String model = scanner.nextLine();
 
-        System.out.print("Enter build");
+        System.out.print("Enter build: ");
         String build = scanner.nextLine();
 
-        System.out.print("Enter color");
+        System.out.print("Enter color: ");
         String color = scanner.nextLine();
 
-        System.out.print("set price");
+        System.out.print("set price: ");
         double price = scanner.nextDouble();
 
 
-
-        if(controller.getAdminController().addBike(bikeId,type,model,build,color,"true",price)){
-            return  bikeId;
-        }
-        else {
-            return null;
-        }
+        System.out.println(controller.getAdminController().addBike(bikeId,type,model,build,color,"true",price));
     }
 
     public void deleteBike(){
