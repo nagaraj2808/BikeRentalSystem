@@ -2,6 +2,7 @@ package Controllers;
 
 import Views.AdminView;
 import Views.LoginView;
+import Views.RentalView;
 import Views.UserView;
 
 public class Controller {
@@ -9,6 +10,15 @@ public class Controller {
     LoginController loginController;
 
     AdminController adminController;
+    RentalController rentalController;
+
+    public RentalController getRentalController() {
+        return rentalController;
+    }
+
+    public void setRentalController(RentalController rentalController) {
+        this.rentalController = rentalController;
+    }
 
     public AdminController getAdminController() {
         return adminController;
@@ -54,6 +64,13 @@ public class Controller {
         this.setAdminController(new AdminController(adminName));
         AdminView adminView = new AdminView();
         adminView.adminMenu();
+    }
+
+    public void rentalPage(String username){
+        this.setRentalController(new RentalController(username));
+        RentalView rentalView = new RentalView();
+        rentalView.setUsername(username);
+        rentalView.rentalMenu();
     }
 
 

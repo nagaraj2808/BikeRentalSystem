@@ -1,6 +1,7 @@
 package Views;
 
 import Controllers.Controller;
+import Controllers.RentalController;
 import Controllers.UserController;
 import Models.User;
 
@@ -10,13 +11,8 @@ public class UserView {
     private String username;
     private Controller controller = new Controller();
 
-    public Controller getController() {
-        return controller;
-    }
 
-    public void setController(Controller controller) {
-        this.controller = controller;
-    }
+
 
     public UserView(String username) {
         this.username = username;
@@ -29,9 +25,7 @@ public class UserView {
         do{
             System.out.println("Welcome!\n");
             System.out.println("1. View My Details");
-            System.out.println("2. Rent a bike");
-            System.out.println("3. Return a rented bike");
-            System.out.println("4. View Rental history");
+            System.out.println("2. Rental page");
             System.out.println("-1. Return to login page");
             System.out.println("0. Exit\n");
 
@@ -41,22 +35,10 @@ public class UserView {
             switch(choice){
                 case 1:
                     controller.setUserController(new UserController(this.username));
-                    User user_returned = controller.getUserController().viewUser(this.username);
-                    if (user_returned != null) {
-                        System.out.println(getUserView(user_returned));
-                    }
-                    else{
-                        System.out.println("Internal Server error");
-                    }
+                    System.out.println(controller.getUserController().viewUser(this.username));
                     break;
                 case 2:
-                    System.out.println("Second option");
-                    break;
-                case 3:
-                    System.out.println("Third option");
-                    break;
-                case 4:
-                    System.out.println("fourth option");
+                    rentalPage();
                     break;
                 case -1:
                     System.out.println("Redirecting to login page.....\n");
@@ -71,10 +53,13 @@ public class UserView {
         }while(choice!=-1);
     }
 
-    public String getUserView(User user){
-//         "-----------------------------------------\n" + "|   Name :" + user.getName() + "     |\n|         |"
+    private void rentalPage() {
+        controller.setRentalController(new RentalController(this.username));
+        controller.rentalPage(this.username);
 
-        return "User details\nUsername:"+user.getUserName()+"\nName:"+user.getName()+"\nEmail id:"+user.getEmailId()+"\nPhone Number:"+user.getPhoneNumber()+"\n\n";
+
     }
+
+
 
 }

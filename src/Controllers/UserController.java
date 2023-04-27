@@ -26,16 +26,25 @@ public class UserController {
 
 
 
-    public User viewUser(String username) {
+    public String  viewUser(String username) {
+        String userInfo="";
         try {
 
             User user = instance.searchUser(username);
+            userInfo = getUserView(user);
 
-            return user;
+
         } catch (SQLException e) {
-            System.out.println("User details missing: " + e.getMessage());
+            userInfo = "User details missing: " + e.getMessage();
 
         }
-        return null;
+        return userInfo;
     }
+    public String getUserView(User user){
+//         "-----------------------------------------\n" + "|   Name :" + user.getName() + "     |\n|         |"
+
+        return "User details\nUsername:"+user.getUserName()+"\nName:"+user.getName()+"\nEmail id:"+user.getEmailId()+"\nPhone Number:"+user.getPhoneNumber()+"\n\n";
+    }
+
+
 }

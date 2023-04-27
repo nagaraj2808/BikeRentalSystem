@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class AdminView {
-    Controller controller = new Controller();
+    private final Controller controller = new Controller();
     private String adminName;
 
     public void adminMenu(){
@@ -36,19 +36,10 @@ public class AdminView {
             String correctDetails;
             switch(choice){
                 case 1:
-
-                    String  allUsers = controller.getAdminController().viewAllUser();
-                    if (Objects.equals(allUsers, "")) {
-                        System.out.println("No users are there");
-                    } else {
-                        System.out.println(allUsers);
-                    }
+                    viewAllUsers();
                     break;
                 case 2:
-                    correctDetails = addNewUser();
-                    if (correctDetails!=null){
-                        System.out.println("User added successfully");
-                    }
+                    addNewUser();
                     break;
                 case 3:
                     deleteUser();
@@ -101,12 +92,9 @@ public class AdminView {
 
         System.out.print("Enter the username of the user: ");
         String username = scanner.nextLine();
-        if(!controller.getAdminController().deleteUser(username)){
-            System.out.println("Operation failed Retry..........");
-        }
-
+        System.out.println(controller.getAdminController().deleteUser(username));
     }
-    public String addNewUser(){
+    public void addNewUser(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nEnter the Details of user to be added");
         System.out.print("Enter the username of the user: ");
@@ -118,18 +106,14 @@ public class AdminView {
         System.out.print("Enter user password: ");
         String password = scanner.nextLine();
 
-        System.out.print("Enter user email");
+        System.out.print("Enter user email: ");
         String emailId = scanner.nextLine();
 
-        System.out.print("Enter user phone number");
+        System.out.print("Enter user phone number: ");
         String phoneNumber = scanner.nextLine();
 
-        if(controller.getAdminController().addUser(username,name,emailId,phoneNumber,password)){
-            return  username;
-        }
-        else {
-            return null;
-        }
+        String output  = controller.getAdminController().addUser(username,name,emailId,phoneNumber,password);
+        System.out.println(output);
     }
 
     public void addNewBike(){
@@ -171,6 +155,13 @@ public class AdminView {
 
     }
 
-
+    public void viewAllUsers(){
+        String  allUsers = controller.getAdminController().viewAllUser();
+        if (Objects.equals(allUsers, "")) {
+            System.out.println("No users are there");
+        } else {
+            System.out.println(allUsers);
+        }
+    }
 
 }

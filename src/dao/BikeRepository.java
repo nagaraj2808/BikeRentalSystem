@@ -45,6 +45,7 @@ public class BikeRepository implements BikeDAO{
             String type = resultSet.getString("type");
             double price =resultSet.getDouble("price");
             Bike bike = BikeFactory.createBike(type,bikeId,model,build,color);
+            bike.setAvailable(available);
             bike.setPrice(price);
             bikes.add(bike);
         }
@@ -90,6 +91,7 @@ public class BikeRepository implements BikeDAO{
             type = resultSet.getString("type");
             double price =resultSet.getDouble("price");
             Bike bike = BikeFactory.createBike(type,bikeId,model,build,color);
+            bike.setAvailable(available);
             bike.setPrice(price);
             bikes.add(bike);
         }
@@ -112,6 +114,7 @@ public class BikeRepository implements BikeDAO{
             String type = resultSet.getString("type");
             double price =resultSet.getDouble("price");
             bike = BikeFactory.createBike(type,bikeId,model,build,color);
+            bike.setAvailable(available);
             bike.setPrice(price);
 
         }
@@ -125,6 +128,17 @@ public class BikeRepository implements BikeDAO{
         PreparedStatement statement = connection.prepareStatement(query);
 //        PreparedStatement statement = connection.prepareStatement(query);
         statement.setDouble(1, newPrice);
+        statement.setString(2, bikeId);
+        statement.executeUpdate();
+    }
+
+    @Override
+    public void updateBikeAvailability(String bikeId, boolean returned) throws SQLException {
+        String query = "UPDATE bike SET available = ? WHERE bikeId = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+//        PreparedStatement statement = connection.prepareStatement(query);
+        String avail = (returned)?"true":"false";
+        statement.setString(1, avail);
         statement.setString(2, bikeId);
         statement.executeUpdate();
     }
