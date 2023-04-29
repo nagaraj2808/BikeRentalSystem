@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private final String url = "jdbc:mysql://localhost/bikerental";
+    private final String url = "jdbc:mysql://localhost/bikerental.sql";
     private final String user = "root";
     private final String password = "";
     private final Connection connection = DriverManager.getConnection(url, user, password);
