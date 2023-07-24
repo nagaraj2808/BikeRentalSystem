@@ -16,6 +16,12 @@ This application is designed using following design patterns
   * Factory pattern: used to create objects of different kinds of bike
   * Decorator pattern: used to add accessories to rental
 
+The database includes following tables:
+  * admin
+  * user
+  * rental
+  * bike
+
 ## Usecase modelling
 ![image](https://github.com/nagaraj2808/BikeRentalSystem/assets/79707183/ce0b101b-03e6-40d8-bf02-2d222aafa7cf)
 
